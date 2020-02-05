@@ -1,0 +1,57 @@
+apply plugin: 'java-library'
+apply plugin: 'kotlin'
+apply plugin: 'kotlin-kapt'
+
+
+def roomVersion = '2.2.1'
+def preferencesVersion = '1.1.0'
+def dagger_version = "2.22"
+def rx_java = "2.2.10"
+def rxandroid = "2.1.1"
+def retrofit = "2.6.2"
+def supportVersion = '28.0.0'
+//def lifecycle_version = "2.1.0"
+
+dependencies {
+    
+
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.core:core-ktx:1.1.0'
+
+    //RxJava
+    implementation "io.reactivex.rxjava2:rxjava:$rx_java"
+    implementation "io.reactivex.rxjava2:rxandroid:$rxandroid"
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.6.2'
+
+    //Gson
+    implementation 'com.google.code.gson:gson:2.8.5'
+    //Gson-Converter
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit"
+
+
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+    implementation "com.google.dagger:dagger:$dagger_version"
+
+    kapt "com.google.dagger:dagger-compiler:$dagger_version"
+    implementation 'com.squareup.picasso:picasso:2.71828'
+
+    //Room
+    implementation "androidx.room:room-runtime:$roomVersion"
+    implementation "androidx.legacy:legacy-support-v4:1.0.0"
+    kapt "androidx.room:room-compiler:$roomVersion"
+    implementation "androidx.room:room-ktx:$roomVersion"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.0"
+
+    //paging
+    implementation 'androidx.paging:paging-runtime:2.1.1'
+    implementation 'androidx.paging:paging-runtime-ktx:2.1.1'
+
+    //implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
+    //annotationProcessor "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
+
+}
+
+sourceCompatibility = "7"
+targetCompatibility = "7"
