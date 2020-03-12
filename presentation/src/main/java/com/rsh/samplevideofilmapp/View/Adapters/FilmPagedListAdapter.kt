@@ -25,7 +25,7 @@ import kotlinx.android.synthetic.main.movie_item.view.film_release_date
 import kotlinx.android.synthetic.main.movie_item.view.film_title
 
 
-class FilmPagedListAdapter (public val context: Context) : PagedListAdapter<Films, RecyclerView.ViewHolder>(MovieDiffCallback()){
+class FilmPagedListAdapter (val context: Context) : PagedListAdapter<Films, RecyclerView.ViewHolder>(MovieDiffCallback()){
 
     val FILM_VIEW_TYPE = 1
     val DB_NETWORK_TYPE = 2

@@ -3,21 +3,15 @@ package com.rsh.samplevideofilmapp.ViewModel
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import androidx.paging.toLiveData
-import com.rsh.data.repository.FilmsDataSourceFactory
 import com.rsh.data.util.SharedPreferencesUtils
-import com.rsh.domain.DISTANCE_DOWNLOAD_PAGE
-import com.rsh.domain.LIMIT_PER_PAGE
 import com.rsh.domain.TIME_LAST_NETWORK_UPDATE
 import com.rsh.domain.TIME_READ_FROM_DB
 import com.rsh.domain.model.Films
 import com.rsh.domain.usecase.FilmsUseCase
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import java.time.LocalDate
-import java.util.*
 import javax.inject.Inject
 
 

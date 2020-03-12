@@ -18,10 +18,6 @@ data class Films (
     @ColumnInfo(name ="backdrop_path")
     val backdrop_path: String?,
 
-    /*@SerializedName("genre_ids")
-    @TypeConverters(InterceptorList::class)
-    @ColumnInfo(name ="agenre_ids")
-    val genre_ids: List<Int>,*/
 
     @PrimaryKey()
     @SerializedName("id")
@@ -60,9 +56,6 @@ data class Films (
     @ColumnInfo(name ="video")
     val video: Boolean?,
 
-    /*@SerializedName("vote_average")
-    @ColumnInfo(name ="vote_average")
-    val vote_average: Int,*/
 
     @SerializedName("vote_count")
     @ColumnInfo(name ="vote_count")

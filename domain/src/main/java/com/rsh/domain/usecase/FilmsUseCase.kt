@@ -18,19 +18,10 @@ import java.util.concurrent.Callable
 class FilmsUseCase(private val repositoryNetworkFilms: I_RepositoryNetworkFilms, private val reposotoryDbFilms: I_RepositoryDbFilms) {
 
 
-
-    //Для экспериментов
-    fun getFilmsFronNetwork(page:Int) = repositoryNetworkFilms.getFilmsList(page)
-        .subscribeOn(Schedulers.io())
-        .concatWith(repositoryNetworkFilms.getFilmsList(page + 1))
-
-
-
     fun getFilmsFronNetworkFilms(page:Int):Observable<FilmsResponse> {
         val dataFilms = repositoryNetworkFilms.getFilmsList(page)
             .subscribeOn(Schedulers.io())
             .map { it ->
-                //getSeveToDb(it.results)
                 it
             }.flatMapObservable { it ->
                 if (it.total_pages > 1) {
@@ -50,23 +41,9 @@ class FilmsUseCase(private val repositoryNetworkFilms: I_RepositoryNetworkFilms,
     }
 
 
-    fun getSeveToDb(objList: List<Films>){
-        Completable.fromRunnable { Runnable {
-            //reposotoryDbFilms.insertListFilms(objList)
-            reposotoryDbFilms.insertListFilmsSample(objList)
-            }
-        }.subscribeOn(Schedulers.io()).subscribe()
-    }
-
     fun getSeveToDbOneFilm(obj: Films):Single<Long>{
         return reposotoryDbFilms.insertFilmSingle(obj)
             .subscribeOn(Schedulers.io())
-    }
-
-    fun getSeveToDbSingle(objList: List<Films>):Single<List<Long>>{
-        return Single.fromCallable(Callable {
-            reposotoryDbFilms.insertListFilms(objList)
-        })
     }
 
 

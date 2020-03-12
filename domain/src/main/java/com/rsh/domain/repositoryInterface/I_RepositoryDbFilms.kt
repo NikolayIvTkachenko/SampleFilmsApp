@@ -18,7 +18,5 @@ interface I_RepositoryDbFilms {
 
     fun getAllFilmsDataSource(): DataSource.Factory<Int, Films>
 
-    //fun getAllRecordsFilmsLiveData():LiveData<List<Films>>
-
     fun getFilmByIdSingle(id: Int):Single<Films>
 }
