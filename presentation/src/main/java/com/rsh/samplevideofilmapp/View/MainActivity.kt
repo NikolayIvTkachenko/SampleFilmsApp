@@ -21,7 +21,7 @@ class MainActivity : BaseActivity() {
     lateinit var shared: SharedPreferencesUtils
 
     override fun getLayoutById() = R.layout.activity_main
-    private val videoListFragment = VideoListFragment()
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {

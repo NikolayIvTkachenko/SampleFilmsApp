@@ -38,28 +38,38 @@ class VideoListFragment : BaseFragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
 
+        Log.d("LIFECYCLE", "onAttach")
         App.getAppComponent().getMainListSubComponent().inject(this)
-        videoListViewModel = ViewModelProviders.of(this, viewModelFactory)[VideoListViewModel::class.java]
+        videoListViewModel =
+            ViewModelProviders.of(this, viewModelFactory)[VideoListViewModel::class.java]
     }
 
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        Log.d("LIFECYCLE", "onCreate")
+
+
+        getDataFromDbOrNetworkMethods()
+    }
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        Log.d("LIFECYCLE", "onViewCreated")
         initUI(view)
     }
 
     fun initUI(view: View) {
         setupView(view)
-        getDataFromDbOrNetworkMethods()
         getFilmsListData()
     }
 
-    fun getDataFromDbOrNetworkMethods(){
+    fun getDataFromDbOrNetworkMethods() {
         videoListViewModel.getDataGeneralSouirce()
     }
 
-    fun setupView(view: View){
+    fun setupView(view: View) {
         filmAdapter = FilmPagedListAdapter(App.getContextApp())
         val gridLayoutManager = GridLayoutManager(App.getContextApp(), 3)
 
@@ -68,29 +78,59 @@ class VideoListFragment : BaseFragment() {
         rv_movie_list.adapter = filmAdapter
     }
 
-    fun getFilmsListData(){
+    fun getFilmsListData() {
+        Log.d("LIFECYCLE", "getFilmsListData()")
 
-
-        videoListViewModel.getListFilmsFromDB().observe(this, Observer {
+        videoListViewModel.getListFilmsFromDB().observe(viewLifecycleOwner, Observer {
             filmAdapter.submitList(it)
         })
 
-        videoListViewModel.getProgessBarOnOff().observe(this, Observer {
-            if(it){
+        videoListViewModel.getProgessBarOnOff().observe(viewLifecycleOwner, Observer {
+            if (it) {
+                data_video.visibility = View.GONE
                 progress_network_update_bar?.visibility = View.VISIBLE
-            }else{
+            } else {
                 progress_network_update_bar?.visibility = View.GONE
+                data_video.visibility = View.VISIBLE
             }
         })
 
-        videoListViewModel.getProgressBarupdate().observe(this, Observer {
-            Log.d("PROCENT", " it = "+it)
+
+
+
+        videoListViewModel.getProgressBarupdate().observe(viewLifecycleOwner, Observer {
+            Log.d("LIFECYCLE", " it = " + it)
             var procent = it ?: 0
-            tv_bar_wait?.text = App.getContextApp().getString(R.string.downloaded_main)+ " " + procent + " %"
+            tv_bar_wait?.text =
+                App.getContextApp().getString(R.string.downloaded_main) + " " + procent + " %"
         })
+
     }
 
 
+    override fun onStart() {
+        super.onStart()
+        Log.d("LIFECYCLE", "onStart")
+    }
 
+    override fun onResume() {
+        super.onResume()
+        Log.d("LIFECYCLE", "onResume")
+    }
 
+    override fun onPause() {
+        super.onPause()
+        Log.d("LIFECYCLE", "onPause")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Log.d("LIFECYCLE", "onStop")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d("LIFECYCLE", "onDestroy")
+
+    }
 }

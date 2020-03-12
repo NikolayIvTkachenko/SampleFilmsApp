@@ -26,7 +26,6 @@ class VideoListViewModel @Inject constructor(private val filmsusecase: FilmsUseC
     private val filmsListMutableLiveData = MutableLiveData<List<Films>>()
 
     private lateinit var filmsPageList: LiveData<PagedList<Films>>
-    private lateinit var filmsDataSourceFactory: FilmsDataSourceFactory
 
     private var progressBarOnOff = MutableLiveData<Boolean>()
     private var progressBarupdate = MutableLiveData<Int>()
@@ -34,17 +33,6 @@ class VideoListViewModel @Inject constructor(private val filmsusecase: FilmsUseC
 
 
     private fun getPageListFilms() {
-        //Библиотека
-        filmsDataSourceFactory = FilmsDataSourceFactory(filmsusecase.getRepositoryDb(), compositeDisposable)
-
-        // PagedList
-        val config = PagedList.Config.Builder()
-            .setEnablePlaceholders(true)
-            .setPrefetchDistance(DISTANCE_DOWNLOAD_PAGE)
-            .setPageSize(LIMIT_PER_PAGE)
-            .build()
-
-        //filmsPageList = LivePagedListBuilder(filmsDataSourceFactory, config).build()
         filmsPageList = filmsusecase.getRepositoryDb().getAllFilmsDataSource().toLiveData(pageSize = 30)
     }
 
