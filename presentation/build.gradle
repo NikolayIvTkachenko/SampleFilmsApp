@@ -9,7 +9,7 @@ apply plugin: 'kotlin-kapt'
 def version = [:]
 version.major = 1
 version.minor = 0
-version.patch = 1
+version.patch = 5
 
 android {
     def globalConfiguration = rootProject.extensions.getByName("ext")
